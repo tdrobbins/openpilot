@@ -1,5 +1,12 @@
 from selfdrive.config import Conversions as CV
 from selfdrive.car.honda.values import HONDA_BOSCH
+from common.params import Params
+
+is_eon_metric = Params().get("IsMetric", encoding='utf8') == "1"
+if is_eon_metric:
+  speed_units = 2
+else:
+  speed_units = 3
 
 # CAN bus layout with relay
 # 0 = ACC-CAN - radar side
@@ -125,7 +132,8 @@ def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, 
         'CRUISE_SPEED': hud.v_cruise,
         'ENABLE_MINI_CAR': 1,
         'HUD_LEAD': hud.car,
-        'HUD_DISTANCE': 3,    # max distance setting on display
+        'HUD_DISTANCE_3': 1,
+        'HUD_DISTANCE': hud.dist_lines,
         'IMPERIAL_UNIT': int(not is_metric),
         'SET_ME_X01_2': 1,
         'SET_ME_X01': 1,
