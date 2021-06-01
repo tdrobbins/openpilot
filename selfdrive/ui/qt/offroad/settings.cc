@@ -48,6 +48,12 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "../assets/offroad/icon_shell.png",
                                   this));
 
+  toggles.append(new ParamControl("LkasEnableDefault",
+                                   "LKAS On by Default",
+                                   "Determines whether LKAS is on or off by default when car starts.",
+                                   "../assets/offroad/icon_road.png",
+                                   this));
+
   if (!Hardware::TICI()) {
     toggles.append(new ParamControl("IsUploadRawEnabled",
                                     "Upload Raw Logs",
