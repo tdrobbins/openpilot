@@ -520,6 +520,13 @@ class CarInterface(CarInterfaceBase):
     if self.CP.enableCruise and ret.vEgo < self.CP.minEnableSpeed:
       events.add(EventName.belowEngageSpeed)
 
+    if not self.CS.lkMode:
+      if self.CS.lkMode != self.CS.prev_lkMode:
+        events.add(EventName.initManualSteeringRequired)
+      else:
+        events.add(EventName.manualSteeringRequired)
+
+
     # it can happen that car cruise disables while comma system is enabled: need to
     # keep braking if needed or if the speed is very low
     if self.CP.enableCruise and not ret.cruiseState.enabled \

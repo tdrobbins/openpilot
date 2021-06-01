@@ -182,7 +182,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"LastGPSPosition", PERSISTENT},
     {"LastUpdateException", PERSISTENT},
     {"LastUpdateTime", PERSISTENT},
-    {"LkasEnableDefault", PERSISTENT},
+    {"LkasDisableDefault", PERSISTENT},
     {"LiveParameters", PERSISTENT},
     {"MapboxToken", PERSISTENT},
     {"NavDestination", PERSISTENT}, // TODO: CLEAR_ON_MANAGER_START

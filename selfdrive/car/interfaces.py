@@ -120,7 +120,7 @@ class CarInterfaceBase():
       events.add(EventName.wrongCruiseMode)
 
     if not cs_out.lkMode:
-      events.add(EventName.manualSteeringRequired)
+        events.add(EventName.manualSteeringRequired)
     elif cs_out.steerError and cs_out.lkMode:
       events.add(EventName.steerUnavailable)
     elif cs_out.steerWarning and cs_out.lkMode:

@@ -48,9 +48,9 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "../assets/offroad/icon_shell.png",
                                   this));
 
-  toggles.append(new ParamControl("LkasEnableDefault",
-                                   "LKAS On by Default",
-                                   "Determines whether LKAS is on or off by default when car starts.",
+  toggles.append(new ParamControl("LkasDisableDefault",
+                                   "LKAS Off by Default",
+                                   "Only give openpilot longitudinal control at the start of each drive. Driver may enable lateral control by pressing the LKAS button. This behavior creates a more 'stock' driving experience.",
                                    "../assets/offroad/icon_road.png",
                                    this));
 

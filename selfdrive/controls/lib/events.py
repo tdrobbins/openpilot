@@ -421,10 +421,18 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.manualSteeringRequired: {
       ET.WARNING: Alert(
-      "STEERING REQUIRED",
-      "AutoSteer OFF",
+        "STEERING REQUIRED: AutoSteer Off",
+      "",
       AlertStatus.normal, AlertSize.small,
-      Priority.LOWEST, VisualAlert.none, AudibleAlert.none, .1, .1, 1., alert_rate=0.25),
+      Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0., 0., 1.),
+  },
+
+    EventName.initManualSteeringRequired: {
+      ET.WARNING: Alert(
+      "STEERING REQUIRED: AutoSteer Off",
+      "",
+      AlertStatus.normal, AlertSize.small,
+      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, 0., 5., 1.),
   },
 
   EventName.manualRestart: {

@@ -212,7 +212,7 @@ class CarState(CarStateBase):
     self.steer_status_values = defaultdict(lambda: "UNKNOWN", can_define.dv["STEER_STATUS"]["STEER_STATUS"])
     params = Params()
 
-    self.lkMode=params.get_bool("LkasEnableDefault")
+    self.lkMode = not params.get_bool("LkasDisableDefault")
     self.user_gas, self.user_gas_pressed = 0., 0
     self.brake_switch_prev = 0
     self.brake_switch_prev_ts = 0
@@ -233,6 +233,7 @@ class CarState(CarStateBase):
     # update prevs, update must run once per loop
     self.prev_cruise_buttons = self.cruise_buttons
     self.prev_lead_distance = self.lead_distance
+    self.prev_lkMode = self.lkMode
 
     # ******************* parse out can *******************
     # TODO: find wheels moving bit in dbc
