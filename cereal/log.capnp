@@ -1382,6 +1382,10 @@ struct ManagerState {
   }
 }
 
+struct DynamicFollowButton {
+  status @0 :UInt16;
+}
+
 struct UploaderState {
   immediateQueueSize @0 :UInt32;
   immediateQueueCount @1 :UInt32;
@@ -1489,6 +1493,8 @@ struct Event {
     deviceState @6 :DeviceState;
     logMessage @18 :Text;
     errorLogMessage @85 :Text;
+
+    dynamicFollowButton @86 :DynamicFollowButton;
 
     # navigation
     navInstruction @82 :NavInstruction;

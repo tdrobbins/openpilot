@@ -1,4 +1,4 @@
-from cereal import car
+from cereal import car, messaging
 from collections import defaultdict
 from common.numpy_fast import interp
 from opendbc.can.can_define import CANDefine
@@ -178,6 +178,11 @@ class CarState(CarStateBase):
     self.cruise_setting = 0
     self.v_cruise_pcm_prev = 0
 
+    # distance button
+    self.pm = messaging.PubMaster(['dynamicFollowButton'])
+    self.trMode = 1
+    self.read_distance_lines_prev = 4
+
   def update(self, cp, cp_cam, cp_body):
     ret = car.CarState.new_message()
 
@@ -295,6 +300,14 @@ class CarState(CarStateBase):
       if ret.brake > 0.1:
         ret.brakePressed = True
 
+    # when user presses distance button on steering wheel
+    if self.cruise_setting == 3:
+      if cp.vl["SCM_BUTTONS"]["CRUISE_SETTING"] == 0:
+        self.trMode = (self.trMode + 1 ) % 4
+        dat = messaging.new_message('dynamicFollowButton')
+        dat.dynamicFollowButton.status = self.trMode
+        self.pm.send('dynamicFollowButton', dat)
+
     # when user presses LKAS button on steering wheel
     if self.cruise_setting == 1:
       if cp.vl["SCM_BUTTONS"]["CRUISE_SETTING"] == 0:
@@ -305,6 +318,9 @@ class CarState(CarStateBase):
 
     self.prev_cruise_setting = self.cruise_setting
     self.cruise_setting = cp.vl["SCM_BUTTONS"]['CRUISE_SETTING']
+    self.read_distance_lines = self.trMode + 1
+    if self.read_distance_lines != self.read_distance_lines_prev:
+      self.read_distance_lines_prev = self.read_distance_lines
 
     # TODO: discover the CAN msg that has the imperial unit bit for all other cars
     if self.CP.carFingerprint in (CAR.CIVIC, ):

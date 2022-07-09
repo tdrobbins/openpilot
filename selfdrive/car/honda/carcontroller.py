@@ -93,7 +93,7 @@ def process_hud_alert(hud_alert):
 
 HUDData = namedtuple("HUDData",
                      ["pcm_accel", "v_cruise", "car",
-                     "lanes", "fcw", "acc_alert", "steer_required", "dashed_lanes"])
+                     "lanes", "fcw", "acc_alert", "steer_required", "dist_lines", "dashed_lanes"])
 
 
 class CarController():
@@ -245,7 +245,7 @@ class CarController():
     if (frame % 10) == 0:
       idx = (frame//10) % 4
       hud = HUDData(int(pcm_accel), int(round(hud_v_cruise)), hud_car,
-                    hud_lanes, fcw_display, acc_alert, steer_required, CS.lkMode)
+                    hud_lanes, fcw_display, acc_alert, steer_required, CS.read_distance_lines, CS.lkMode)
       can_sends.extend(hondacan.create_ui_commands(self.packer, CS.CP, pcm_speed, hud, CS.is_metric, idx, CS.stock_hud))
 
       if (CS.CP.openpilotLongitudinalControl) and (CS.CP.carFingerprint not in HONDA_BOSCH):
